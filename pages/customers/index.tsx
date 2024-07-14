@@ -15,7 +15,7 @@ export type Order = {
     // _id: ObjectId;
 };
 
-export type Customer = {
+export type CustomerType = {
     // _id?: ObjectId;
     id: number,
     name: string;
@@ -24,8 +24,9 @@ export type Customer = {
 };
 
 type Props = {
-    customers: Customer[];
+    customers: CustomerType[];
 };
+
 // export const getStaticProps: GetStaticProps<Props> = async (context) => { 
 //     const data = await getCustomers();
 //     console.log(data);
@@ -80,7 +81,7 @@ const Customers: NextPage<Props> = ({ customers }: InferGetStaticPropsType<typeo
     return (
         <>
             <h1>Customers</h1>
-            {customers.map((customer: Customer) => {
+            {customers.map((customer: CustomerType) => {
                 return (
                     <div key={customer.id}>
                         <p>{customer.name}</p>
