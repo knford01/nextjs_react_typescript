@@ -5,6 +5,9 @@ import clientPromise from '../../lib/mongodb';
 import { getCustomers } from '../api/customers/index';
 import { useQuery } from '@tanstack/react-query';
 
+
+import Customer from '@/components/Customer';
+
 // import CustomerComponent from '../../components/Customer';
 // import Grid from '@mui/material/Grid';
 // import Container from '@mui/material/Container';
@@ -29,7 +32,7 @@ type Props = {
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
     //Easy MongoDB\\
     const data = await getCustomers();
-    console.log(data);
+    // console.log(data);
 
     return {
         props: {
@@ -99,18 +102,14 @@ const Customers: NextPage<Props> = ({ customers: c }: InferGetStaticPropsType<ty
         return axios('/api/customers') as any;
     });
 
-    console.log(customers, c);
+    // console.log(customers, c);
 
     return (
         <>
             <h1>Customers</h1>
             {customers.map((customer: CustomerType) => {
                 return (
-                    <div key={customer._id?.toString()}>
-                        <p>Customer ID: {customer._id?.toString()}</p>
-                        <p>Customer Name: {customer.name}</p>
-                        <p>Contact: {customer.contact}</p>
-                    </div>
+                    <Customer customer={customer} />
                 );
             })}
         </>

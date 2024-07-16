@@ -4,11 +4,12 @@ import Tooltip from '@mui/material/Tooltip';
 import Info from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 
-import { Customer } from '../pages/customers';
+import { CustomerType } from '../pages/customers';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 
-const Customer = ({ customer }: { customer: Customer }) => {
+//We have  object { customer } and we want to define what type it is: property customer of type customer\\ 
+const Customer = ({ customer }: { customer: CustomerType }) => {
     return (
         <Grid item>
             <span
@@ -16,6 +17,7 @@ const Customer = ({ customer }: { customer: Customer }) => {
                     display: 'flex',
                     alignItems: 'center',
                     flexWrap: 'wrap',
+                    marginTop: 10
                 }}
             >
                 <Tooltip title={customer._id?.toString()}>
@@ -23,7 +25,7 @@ const Customer = ({ customer }: { customer: Customer }) => {
                 </Tooltip>
                 {customer.name}
             </span>
-            <p>{customer.industry}</p>
+            <p>Contact: {customer.contact}</p>
             <Link
                 href={{
                     pathname: '/orders',
