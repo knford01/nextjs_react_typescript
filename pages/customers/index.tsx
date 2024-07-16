@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MongoClient, ObjectId } from 'mongodb';
 import clientPromise from '../../lib/mongodb';
 import { getCustomers } from '../api/customers/index';
-// import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 // import CustomerComponent from '../../components/Customer';
 // import Grid from '@mui/material/Grid';
@@ -93,8 +93,13 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 //     );
 // };
 
-const Customers: NextPage<Props> = ({ customers }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Customers: NextPage<Props> = ({ customers: c }: InferGetStaticPropsType<typeof getStaticProps>) => {
     // console.log(customers);
+    const { data: { data: { customers = c } = {} } = {} } = useQuery(['customers'], () => {
+        return axios('/api/customers') as any;
+    });
+
+    console.log(customers, c);
 
     return (
         <>

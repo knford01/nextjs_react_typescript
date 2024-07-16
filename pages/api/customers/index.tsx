@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
 import { CustomerType, Order } from '../../customers/index';
-// import NextCors from 'nextjs-cors';
+import NextCors from 'nextjs-cors';
 
 type Return = {
     customers: CustomerType[];
@@ -32,15 +32,16 @@ export const addCustomer = async (customer: CustomerType): Promise<ObjectId> => 
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    //     await NextCors(req, res, {
-    //         methods: ['GET', 'POST'],
-    //         origin: [
-    //             'http://localhost:3000',
-    //             'http://localhost:3001',
-    //             'http://localhost:3002',
-    //         ],
-    //         optionsSuccessStatus: 200,
-    //     });
+    await NextCors(req, res, {
+        methods: ['GET', 'POST'],
+        origin: [
+            'http://localhost:3000',
+            'http://localhost:3001',
+            'http://localhost:3002',
+            //* use this for everything
+        ],
+        optionsSuccessStatus: 200,
+    });
     if (req.method === 'GET') {
         const data = await getCustomers();
         res.status(200).json(JSON.parse(JSON.stringify(data)));
