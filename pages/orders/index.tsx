@@ -3,10 +3,10 @@ import * as React from 'react';
 // import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 // import Container from '@mui/material/Container';
 import { GetStaticProps, NextPage } from 'next/types';
-// import { getCustomers } from '../api/customers';
-// import { useRouter } from 'next/router';
-// import { Customer, Order } from '../customers';
-// import { ObjectId } from 'mongodb';
+import { getCustomers } from '../api/customers';
+import { useRouter } from 'next/router';
+import { CustomerType, Order } from '../customers';
+import { ObjectId } from 'mongodb';
 
 // const columns: GridColDef[] = [
 //     {
