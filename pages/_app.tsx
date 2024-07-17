@@ -6,18 +6,17 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-// import Theme from '../components/Theme';
+import Dashboard from '../components/DashboardUI';
 
-//Root component that surrounds everything else\\
 function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
         <QueryClientProvider client={queryClient}>
-            {/* <Theme> */}
-            <Component {...pageProps} />
-            <ReactQueryDevtools initialIsOpen={false} />
-            {/* </Theme> */}
+            <Dashboard>
+                <Component {...pageProps} />
+                <ReactQueryDevtools initialIsOpen={false} />
+            </Dashboard>
         </QueryClientProvider>
     );
 }
