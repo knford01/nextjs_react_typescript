@@ -109,7 +109,9 @@ const Customers: NextPage<Props> = ({ customers: c }: InferGetStaticPropsType<ty
             <h1>Customers</h1>
             {customers.map((customer: CustomerType) => {
                 return (
-                    <Customer customer={customer} />
+                    <div key={customer._id?.toString()} >
+                        <Customer customer={customer} />
+                    </div>
                 );
             })}
         </>
