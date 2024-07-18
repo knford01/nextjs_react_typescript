@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridApiRef } from '@mui/x-data-grid';
 import { GetStaticProps, NextPage } from 'next/types';
@@ -11,11 +10,7 @@ import Button from '@mui/material/Button';
 import { saveAs } from 'file-saver';
 import XLSX from 'xlsx';
 import Tooltip from '@mui/material/Tooltip';
-import { handleCopyToClipboard } from '../../components/UserInteractions';
 import Container from '@mui/material/Container';
-
-// const [copied, setCopied] = useState(false);
-// const [showCustomers, setShowCustomers] = useState(false);
 
 const columns: GridColDef[] = [
     {
@@ -23,17 +18,8 @@ const columns: GridColDef[] = [
         headerName: 'Order ID',
         width: 250,
         renderCell: (params) => (
-            // <Tooltip title={copied ? 'Copied!' : params.value || ''}>
             <Tooltip title={params.value || ''}>
-
-                <div onClick={() => {
-                    // const [copied, setCopied] = useState(false);
-                    handleCopyToClipboard(params.value);
-                    // setCopied(true);
-                    // setTimeout(() => setCopied(false), 2000);
-                }}>
-                    {params.value}
-                </div>
+                <div>{params.value}</div>
             </Tooltip>
         ),
     },
@@ -43,9 +29,7 @@ const columns: GridColDef[] = [
         width: 250,
         renderCell: (params) => (
             <Tooltip title={params.value || ''}>
-                <div onClick={() => handleCopyToClipboard(params.value)}>
-                    {params.value}
-                </div>
+                <div>{params.value}</div>
             </Tooltip>
         ),
     },
@@ -79,7 +63,6 @@ const columns: GridColDef[] = [
     },
 ];
 
-//This allows modifying the order type\\
 interface OrderRow {
     description: string;
     orderPrice: string;
@@ -100,10 +83,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     data.forEach((customer: CustomerType) => {
         if (customer.orders && customer._id) {
             customer.orders.forEach((order: Order) => {
+                const custID = customer._id?.toString() || new ObjectId().toString();
                 orders.push({
                     description: order.description,
                     customerName: customer.name,
-                    customerId: customer._id.toString(),
+                    customerId: custID,
                     id: order._id?.toString() || new ObjectId().toString(),
                     orderPrice: `$${Number(order.price).toFixed(2)}`,
                 });
@@ -121,13 +105,23 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 const Orders: NextPage<Props> = (props) => {
     const { customerId } = useRouter().query;
+    const [selectedRows, setSelectedRows] = React.useState<OrderRow[]>([]);
     const gridApiRef = React.useRef<GridApiRef>(null);
 
+    const handleSelectionChange = () => {
+        const selectionModel = gridApiRef.current?.getSelectionModel();
+        if (selectionModel) {
+            const selectedRowsData = selectionModel.map((id) =>
+                props.orders.find((row) => row.id === id)
+            );
+            setSelectedRows(selectedRowsData);
+        }
+    };
+
     const exportSelectedToExcel = () => {
-        const selectedRows = gridApiRef.current?.getSelectedRows() || [];
         const selectedOrders = selectedRows.map((row) => ({
-            ...row.data,
-            orderPrice: row.data.orderPrice.replace('$', ''),
+            ...row,
+            orderPrice: row.orderPrice.replace('$', ''),
         }));
 
         const ws = XLSX.utils.json_to_sheet(selectedOrders);
@@ -164,10 +158,7 @@ const Orders: NextPage<Props> = (props) => {
                     rowsPerPageOptions={[5]}
                     checkboxSelection
                     disableSelectionOnClick
-                    // getRowClassName={(params) =>
-                    //     params.index % 2 === 0 ? 'even-row' : 'odd-row'
-                    // }
-                    // apiRef={gridApiRef}
+                    apiRef={gridApiRef}
                     components={{
                         Toolbar: () => (
                             <div>
@@ -183,6 +174,7 @@ const Orders: NextPage<Props> = (props) => {
                             </div>
                         ),
                     }}
+                    onSelectionModelChange={handleSelectionChange}
                 />
             </Box>
         </Container>
