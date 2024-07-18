@@ -6,11 +6,9 @@ import { getCustomers } from '../api/customers';
 import { useRouter } from 'next/router';
 import { CustomerType, Order } from '../customers';
 import { ObjectId } from 'mongodb';
-import Button from '@mui/material/Button';
-import { saveAs } from 'file-saver';
-import XLSX from 'xlsx';
 import Tooltip from '@mui/material/Tooltip';
 import Container from '@mui/material/Container';
+import DataGridExporter from '@/components/utilities/DataGridExporter';
 
 const columns: GridColDef[] = [
     {
@@ -105,43 +103,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 const Orders: NextPage<Props> = (props) => {
     const { customerId } = useRouter().query;
-    const [selectedRows, setSelectedRows] = React.useState<OrderRow[]>([]);
-    const gridApiRef = React.useRef<GridApiRef>(null);
-
-    const handleSelectionChange = () => {
-        const selectionModel = gridApiRef.current?.getSelectionModel();
-        if (selectionModel) {
-            const selectedRowsData = selectionModel.map((id) =>
-                props.orders.find((row) => row.id === id)
-            );
-            setSelectedRows(selectedRowsData);
-        }
-    };
-
-    const exportSelectedToExcel = () => {
-        const selectedOrders = selectedRows.map((row) => ({
-            ...row,
-            orderPrice: row.orderPrice.replace('$', ''),
-        }));
-
-        const ws = XLSX.utils.json_to_sheet(selectedOrders);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Selected Orders');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-        const buffer = new ArrayBuffer(wbout.length);
-        const view = new Uint8Array(buffer);
-        for (let i = 0; i < wbout.length; i++) {
-            view[i] = wbout.charCodeAt(i) & 0xff;
-        }
-        saveAs(
-            new Blob([buffer], { type: 'application/octet-stream' }),
-            'selected_orders.xlsx'
-        );
-    };
 
     return (
         <Container maxWidth="xl" sx={{ m: 2, width: '100%', height: '85%' }}>
             <Box sx={{ height: '100%', width: '100%' }}>
+                <DataGridExporter data={props.orders} fileName="orders_export.xlsx" />
                 <DataGrid
                     filterModel={{
                         items: [
@@ -158,23 +124,6 @@ const Orders: NextPage<Props> = (props) => {
                     rowsPerPageOptions={[5]}
                     checkboxSelection
                     disableSelectionOnClick
-                    apiRef={gridApiRef}
-                    components={{
-                        Toolbar: () => (
-                            <div>
-                                <div style={{ display: 'flex' }}>
-                                    <Button
-                                        onClick={exportSelectedToExcel}
-                                        variant="contained"
-                                        sx={{ marginRight: '10px' }}
-                                    >
-                                        Export Selected to Excel
-                                    </Button>
-                                </div>
-                            </div>
-                        ),
-                    }}
-                    onSelectionModelChange={handleSelectionChange}
                 />
             </Box>
         </Container>
