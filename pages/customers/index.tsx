@@ -20,7 +20,7 @@ export type CustomerType = {
     _id?: ObjectId;
     name: string;
     contact: string;
-    // orders?: Order[];
+    orders?: Order[];
 };
 
 type Props = {

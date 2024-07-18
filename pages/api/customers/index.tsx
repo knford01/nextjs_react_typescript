@@ -52,9 +52,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const customer: CustomerType = {
                 name: req.body.name,
                 contact: req.body.contact,
-                // orders: req.body.orders.map((order: Order) => {
-                //     return { ...order, _id: new ObjectId() };
-                // }),
+                orders: req.body.orders.map((order: Order) => {
+                    return { ...order, _id: new ObjectId() };
+                }),
             };
 
             const insertedId = await addCustomer(customer);
