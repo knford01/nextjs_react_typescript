@@ -11,21 +11,23 @@ import Link from 'next/link';
 //We have  object { customer } and we want to define what type it is: property customer of type customer\\ 
 const Customer = ({ customer }: { customer: CustomerType }) => {
     return (
-        <Grid item>
-            <span
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    marginTop: 10
-                }}
-            >
-                <Tooltip title={customer._id?.toString()}>
-                    <PersonIcon fontSize="small" style={{ marginRight: 5 }} />
-                </Tooltip>
-                {customer.name}
-            </span>
-            <p>Contact: {customer.contact}</p>
+        <div style={{ flex: 1, padding: '16px', border: '1px solid #ddd', borderRadius: '8px', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+            <div>
+                <span
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: 10,
+                    }}
+                >
+                    <Tooltip title={customer._id?.toString()}>
+                        <PersonIcon fontSize="small" style={{ marginRight: 5 }} />
+                    </Tooltip>
+                    {customer.name}
+                </span>
+                <p>Contact: {customer.contact}</p>
+            </div>
             <Link
                 href={{
                     pathname: '/orders',
@@ -33,10 +35,11 @@ const Customer = ({ customer }: { customer: CustomerType }) => {
                         customerId: customer._id?.toString(),
                     },
                 }}
+                passHref
             >
                 <Button variant="contained">View Orders</Button>
             </Link>
-        </Grid>
+        </div>
     );
 };
 

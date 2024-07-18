@@ -14,7 +14,7 @@ export const getCustomers = async (): Promise<CustomerType[]> => {
     const data = (await mongoClient
         .db('customers')
         .collection('customers')
-        .find({})
+        .find()
         .toArray()) as CustomerType[];
 
     return JSON.parse(JSON.stringify(data));

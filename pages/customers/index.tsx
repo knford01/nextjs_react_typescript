@@ -4,13 +4,11 @@ import { MongoClient, ObjectId } from 'mongodb';
 import clientPromise from '../../lib/mongodb';
 import { getCustomers } from '../api/customers/index';
 import { useQuery } from '@tanstack/react-query';
-
+// import Grid from '@mui/material/Grid';
 
 import Customer from '@/components/Customer';
-
-// import CustomerComponent from '../../components/Customer';
-// import Grid from '@mui/material/Grid';
-// import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 export type Order = {
     description: string;
@@ -96,26 +94,35 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 //     );
 // };
 
-const Customers: NextPage<Props> = ({ customers: c }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    // console.log(customers);
-    const { data: { data: { customers = c } = {} } = {} } = useQuery(['customers'], () => {
-        return axios('/api/customers') as any;
+const Customers: NextPage<Props> = ({ customers: initialCustomers }: InferGetStaticPropsType<typeof getStaticProps>) => {
+
+
+    const { data: customers, refetch } = useQuery({
+        queryKey: ['customers'], queryFn: async () => {
+            const response = await axios.get('/api/customers');
+            return response.data;
+        },
+        initialData: initialCustomers,
+        refetchInterval: 1000 * 5,
     });
 
-    // console.log(customers, c);
+    if (customers) {
+        console.log(customers);
 
-    return (
-        <>
-            <h1>Customers</h1>
-            {customers.map((customer: CustomerType) => {
-                return (
-                    <div key={customer._id?.toString()} >
-                        <Customer customer={customer} />
-                    </div>
-                );
-            })}
-        </>
-    );
+        return (
+            <Container sx={{ display: 'flex', justifyContent: 'center', minHeight: '10vh', mt: 1 }}>
+                <Grid container spacing={1} justifyContent="center">
+                    {customers.map((customer: CustomerType) => (
+                        <Grid item xs={12} sm={6} md={4} lg={2} key={customer._id?.toString()} sx={{ display: 'flex' }}>
+                            <Customer customer={customer} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Container>
+        );
+    }
+
+    return null;
 };
 
 export default Customers;
