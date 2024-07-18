@@ -8,7 +8,6 @@ import Link from '@mui/material/Link';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
-import './index.css';
 
 const Home: NextPage = () => {
     return (
