@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridApiRef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { GetStaticProps, NextPage } from 'next/types';
 import { getCustomers } from '../api/customers';
 import { useRouter } from 'next/router';
