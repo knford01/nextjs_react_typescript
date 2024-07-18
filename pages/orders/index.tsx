@@ -79,6 +79,7 @@ const columns: GridColDef[] = [
     },
 ];
 
+//This allows modifying the order type\\
 interface OrderRow {
     description: string;
     orderPrice: string;
@@ -112,7 +113,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
         props: {
-            orders,
+            orders: orders,
         },
         revalidate: 60,
     };
@@ -121,22 +122,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 const Orders: NextPage<Props> = (props) => {
     const { customerId } = useRouter().query;
     const gridApiRef = React.useRef<GridApiRef>(null);
-
-    const exportToExcel = () => {
-        const ws = XLSX.utils.json_to_sheet(props.orders);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Orders');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-        const buffer = new ArrayBuffer(wbout.length);
-        const view = new Uint8Array(buffer);
-        for (let i = 0; i < wbout.length; i++) {
-            view[i] = wbout.charCodeAt(i) & 0xff;
-        }
-        saveAs(
-            new Blob([buffer], { type: 'application/octet-stream' }),
-            'orders.xlsx'
-        );
-    };
 
     const exportSelectedToExcel = () => {
         const selectedRows = gridApiRef.current?.getSelectedRows() || [];
@@ -179,29 +164,22 @@ const Orders: NextPage<Props> = (props) => {
                     rowsPerPageOptions={[5]}
                     checkboxSelection
                     disableSelectionOnClick
-                    getRowClassName={(params) =>
-                        params.index % 2 === 0 ? 'even-row' : 'odd-row'
-                    }
-                    apiRef={gridApiRef}
-                    componentsProps={{
-                        toolbar: {
-                            exportButton: (
-                                <Button onClick={exportToExcel} variant="contained">
-                                    Export to Excel
-                                </Button>
-                            ),
-                        },
-                    }}
+                    // getRowClassName={(params) =>
+                    //     params.index % 2 === 0 ? 'even-row' : 'odd-row'
+                    // }
+                    // apiRef={gridApiRef}
                     components={{
                         Toolbar: () => (
-                            <div style={{ display: 'flex' }}>
-                                <Button
-                                    onClick={exportSelectedToExcel}
-                                    variant="contained"
-                                    sx={{ marginRight: '10px' }}
-                                >
-                                    Export Selected to Excel
-                                </Button>
+                            <div>
+                                <div style={{ display: 'flex' }}>
+                                    <Button
+                                        onClick={exportSelectedToExcel}
+                                        variant="contained"
+                                        sx={{ marginRight: '10px' }}
+                                    >
+                                        Export Selected to Excel
+                                    </Button>
+                                </div>
                             </div>
                         ),
                     }}

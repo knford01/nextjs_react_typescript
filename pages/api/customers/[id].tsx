@@ -58,9 +58,9 @@ export default async (
         const customer: CustomerType = {
             name: req.body.name,
             contact: req.body.contact,
-            // orders: req.body.orders.map((order: Order) => {
-            //     return { ...order, _id: new ObjectId() };
-            // }),
+            orders: req.body.orders.map((order: Order) => {
+                return { ...order, _id: new ObjectId() };
+            }),
         };
 
         const data = await editCustomer(id as string, customer);
