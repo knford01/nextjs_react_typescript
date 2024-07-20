@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled, ThemeProvider, Theme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -11,17 +11,10 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainLinks, secondaryLinks } from './LinkList';
-import Chart from '../Chart';
-import Deposits from '../Deposits';
-import Orders from '../Orders';
+import { mainLinks, resourceLinks, siteLinks, adminLinks } from './LinkList';
 
 const drawerWidth: number = 240;
 
@@ -73,18 +66,20 @@ const Drawer = styled(MuiDrawer, {
     },
 }));
 
-const mdTheme = createTheme();
+interface ThemeProps {
+    theme: Theme;
+    children: React.ReactNode;
+}
 
-export default function Theme(props: any) {
+export default function NavTheme({ theme, children }: ThemeProps) {
     const router = useRouter();
-
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
     return (
-        <ThemeProvider theme={mdTheme}>
+        <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open}>
@@ -115,7 +110,7 @@ export default function Theme(props: any) {
                             {router.pathname === '/' ? 'AR-Source Software' : router.pathname.substring(1, 2).toLocaleUpperCase() + router.pathname.substring(2)}
                         </Typography>
                         <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
+                            <Badge badgeContent={0} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
@@ -139,7 +134,11 @@ export default function Theme(props: any) {
                     <List component="nav">
                         {mainLinks(router)}
                         <Divider sx={{ my: 1 }} />
-                        {secondaryLinks(router)}
+                        {resourceLinks(router)}
+                        <Divider sx={{ my: 1 }} />
+                        {siteLinks(router)}
+                        <Divider sx={{ my: 1 }} />
+                        {adminLinks(router)}
                     </List>
                 </Drawer>
                 <Box
@@ -155,7 +154,7 @@ export default function Theme(props: any) {
                     }}
                 >
                     <Toolbar />
-                    {props.children}
+                    {children}
                 </Box>
             </Box>
         </ThemeProvider>
