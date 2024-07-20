@@ -133,11 +133,12 @@ export default function NavTheme({ theme, children }: ThemeProps) {
                     <Divider />
                     <List component="nav">
                         {mainLinks(router)}
-                        <Divider sx={{ my: 1 }} />
+                        {/* <Divider sx={{ my: 1 }} /> */}
+                        <Divider />
                         {resourceLinks(router)}
-                        <Divider sx={{ my: 1 }} />
+                        <Divider />
                         {siteLinks(router)}
-                        <Divider sx={{ my: 1 }} />
+                        <Divider />
                         {adminLinks(router)}
                     </List>
                 </Drawer>

@@ -59,8 +59,8 @@ export const themes = {
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
-                        '&.Mui-selected': { backgroundColor: '#112D32', color: '#88BDBC' },
-                        '&:hover': { backgroundColor: '#88BDBC' },
+                        '&.Mui-selected': { backgroundColor: '#4F4A41', color: '#88BDBC' },
+                        '&:hover': { backgroundColor: '#112D32' },
                     }
                 }
             },
@@ -82,7 +82,7 @@ export const themes = {
                 styleOverrides: {
                     root: {
                         color: '#ffffff', // change this to the color you want for the ListSubheader
-                        backgroundColor: '#4F4A41', // optional: change this to match the background
+                        backgroundColor: '#88BDBC', // optional: change this to match the background
                     },
                 },
             },
@@ -280,7 +280,7 @@ export const themes = {
                 styleOverrides: {
                     root: {
                         '&.Mui-selected': { backgroundColor: '#17a2b8', color: '#557A95' },
-                        '&:hover': { backgroundColor: '#7395AE' },
+                        '&:hover': { backgroundColor: '#557A95' },
                     }
                 }
             },
@@ -302,7 +302,7 @@ export const themes = {
                 styleOverrides: {
                     root: {
                         color: '#ffffff', // change this to the color you want for the ListSubheader
-                        backgroundColor: '#557A95', // optional: change this to match the background
+                        backgroundColor: '#7395AE', // optional: change this to match the background
                     },
                 },
             },
