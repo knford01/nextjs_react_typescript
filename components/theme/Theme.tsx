@@ -14,7 +14,10 @@ import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreVertIcon from '@mui/icons-material/MoreVert'; // Import the icon for the dropdown menu
+import { Menu, MenuItem } from '@mui/material'; // Import Menu and MenuItem
 import { mainLinks, resourceLinks, siteLinks, adminLinks } from './LinkList';
+import { themes, ThemeType } from './ThemeStyles';
 
 const drawerWidth: number = 240;
 
@@ -68,18 +71,37 @@ const Drawer = styled(MuiDrawer, {
 
 interface ThemeProps {
     theme: Theme;
+    themes: Record<ThemeType, Theme>;
+    onThemeChange: (themeKey: ThemeType) => void;
     children: React.ReactNode;
 }
 
-export default function NavTheme({ theme, children }: ThemeProps) {
+export default function NavTheme({ theme, children, themes, onThemeChange }: ThemeProps) {
     const router = useRouter();
     const [open, setOpen] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [selectedTheme, setSelectedTheme] = React.useState<ThemeType>(Object.keys(themes)[0] as ThemeType); // Set the default theme
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
+    const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleThemeChange = (themeKey: ThemeType) => {
+        setSelectedTheme(themeKey);
+        onThemeChange(themeKey);
+        handleMenuClose();
+    };
+
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themes[selectedTheme]}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open}>
@@ -114,6 +136,32 @@ export default function NavTheme({ theme, children }: ThemeProps) {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
+                        <IconButton
+                            edge="end"
+                            color="inherit"
+                            aria-label="theme-menu"
+                            aria-controls="theme-menu"
+                            aria-haspopup="true"
+                            onClick={handleMenuClick}
+                        >
+                            {anchorEl ? <ChevronLeftIcon /> : <MoreVertIcon />}
+                        </IconButton>
+                        <Menu
+                            id="theme-menu"
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={handleMenuClose}
+                        >
+                            {Object.keys(themes).map((key) => (
+                                <MenuItem
+                                    key={key}
+                                    selected={key === selectedTheme}
+                                    onClick={() => handleThemeChange(key as ThemeType)}
+                                >
+                                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                                </MenuItem>
+                            ))}
+                        </Menu>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
@@ -133,11 +181,10 @@ export default function NavTheme({ theme, children }: ThemeProps) {
                     <Divider />
                     <List component="nav">
                         {mainLinks(router)}
-                        {/* <Divider sx={{ my: 1 }} /> */}
                         <Divider />
                         {resourceLinks(router)}
-                        <Divider />
-                        {siteLinks(router)}
+                        {/* <Divider />
+                        {siteLinks(router)} */}
                         <Divider />
                         {adminLinks(router)}
                     </List>

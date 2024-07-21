@@ -11,35 +11,20 @@ import Theme from '@/components/theme/Theme';
 import { themes, ThemeType } from '@/components/theme/ThemeStyles';
 
 function MyApp({ Component, pageProps }: AppProps) {
-    // const [theme, setTheme] = useState(themes.dark);
-    // const [queryClient] = useState(() => new QueryClient());
-    // const router = useRouter();
-
-    // useEffect(() => {
-    //     async function fetchTheme() {
-    //         const res = await fetch('/api/getTheme', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ userId: 'your-user-id' }),
-    //         });
-    //         const data = await res.json();
-
-    //         // Type assertion to ensure that data.theme is a valid key
-    //         const themeKey: ThemeType = data.theme;
-    //         setTheme(themes[themeKey] || themes.light);
-    //     }
-
-    //     fetchTheme();
-    // }, [router.pathname]);
-
-    const [theme, setTheme] = useState<ThemeType>('serious');
+    const [currentTheme, setCurrentTheme] = useState<ThemeType>('stylish');
     const [queryClient] = useState(() => new QueryClient());
+
+    const handleThemeChange = (themeKey: ThemeType) => {
+        setCurrentTheme(themeKey);
+    };
 
     return (
         <QueryClientProvider client={queryClient}>
-            <Theme theme={themes[theme]}>
+            <Theme
+                theme={themes[currentTheme]} // Apply the current theme
+                themes={themes} // Pass all available themes
+                onThemeChange={handleThemeChange} // Pass the handler to change theme
+            >
                 <Component {...pageProps} />
                 <ReactQueryDevtools initialIsOpen={false} />
             </Theme>

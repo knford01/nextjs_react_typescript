@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import type { } from '@mui/x-data-grid/themeAugmentation';
 
 export const themes = {
     light: createTheme({
@@ -50,7 +51,7 @@ export const themes = {
             mode: 'light',
             primary: { main: '#254E58' },
             secondary: { main: '#254E58' },
-            background: { default: '#254E58', paper: '#88BDBC' },
+            background: { default: '#112D32', paper: '#88BDBC' },
             text: { primary: '#254E58', secondary: '#254E58' },
         },
         components: {
@@ -74,7 +75,7 @@ export const themes = {
             MuiTypography: {
                 styleOverrides: {
                     root: {
-                        color: '#ffffff', // change this to the color you want for link fonts
+                        color: '#ffffff', // change this to the color you want for link fonts 
                     },
                 },
             },
@@ -83,6 +84,29 @@ export const themes = {
                     root: {
                         color: '#ffffff', // change this to the color you want for the ListSubheader
                         backgroundColor: '#88BDBC', // optional: change this to match the background
+                    },
+                },
+            },
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiDataGrid-cell': {
+                            backgroundColor: '#88BDBC', // Background color for cells
+                            color: '#ffffff', // Font color for cells
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
+                            backgroundColor: '#112D32', // Background color for column headers
+                            color: '#ffffff', // Font color for column headers
+                        },
+                        '& .MuiDataGrid-footerContainer': {
+                            backgroundColor: '#112D32', // Background color for footer
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f5f5f5', // Background color for toolbar
+                        },
+                        '& .MuiDataGrid-selectedRow': {
+                            backgroundColor: '#e0f7fa', // Background color for selected rows
+                        },
                     },
                 },
             },
@@ -138,12 +162,12 @@ export const themes = {
             mode: 'light',
             primary: { main: '#31708E' },
             secondary: { main: '#31708E' },
-            background: { default: '#31708E', paper: '#8FC1E3' },
+            background: { default: '#687664', paper: '#8FC1E3' },
             text: { primary: '#ffffff', secondary: '#31708E' },
         },
         components: {
-            MuiAppBar: { styleOverrides: { root: { backgroundColor: '#31708E' } } },//Top Nav
-            MuiDrawer: { styleOverrides: { paper: { backgroundColor: '#31708E' } } },//Side Nav
+            MuiAppBar: { styleOverrides: { root: { backgroundColor: '#31708E' } } }, // Top Nav
+            MuiDrawer: { styleOverrides: { paper: { backgroundColor: '#31708E' } } }, // Side Nav
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
@@ -174,6 +198,30 @@ export const themes = {
                     },
                 },
             },
+            // Updated MuiDataGrid overrides
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiDataGrid-cell': {
+                            backgroundColor: '#8FC1E3', // Background color for cells
+                            color: '#ffffff', // Font color for cells
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
+                            backgroundColor: '#687664', // Background color for column headers
+                            color: '#ffffff', // Font color for column headers
+                        },
+                        '& .MuiDataGrid-footerContainer': {
+                            backgroundColor: '#687664', // Background color for footer
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f5f5f5', // Background color for toolbar
+                        },
+                        '& .MuiDataGrid-selectedRow': {
+                            backgroundColor: '#e0f7fa', // Background color for selected rows
+                        },
+                    },
+                },
+            },
         },
     }),
 
@@ -182,7 +230,7 @@ export const themes = {
             mode: 'light',
             primary: { main: '#022140' },
             secondary: { main: '#022140' },
-            background: { default: '#2D5F5D', paper: '#265077' },
+            background: { default: '#022140', paper: '#265077' },
             text: { primary: '#ffffff', secondary: '#022140' },
         },
         components: {
@@ -218,6 +266,29 @@ export const themes = {
                     },
                 },
             },
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiDataGrid-cell': {
+                            backgroundColor: '#265077', // Background color for cells
+                            color: '#ffffff', // Font color for cells
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
+                            backgroundColor: '#022140', // Background color for column headers
+                            color: '#ffffff', // Font color for column headers
+                        },
+                        '& .MuiDataGrid-footerContainer': {
+                            backgroundColor: '#022140', // Background color for footer
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f5f5f5', // Background color for toolbar
+                        },
+                        '& .MuiDataGrid-selectedRow': {
+                            backgroundColor: '#e0f7fa', // Background color for selected rows
+                        },
+                    },
+                },
+            },
         },
     }),
 
@@ -226,7 +297,7 @@ export const themes = {
             mode: 'light',
             primary: { main: '#0b4647' },
             secondary: { main: '#4F4A41' },
-            background: { default: '#0b4647', paper: '#178587' },
+            background: { default: '#FFCB9A', paper: '#178587' },
             text: { primary: '#ffffff', secondary: '#0b4647' },
         },
         components: {
@@ -262,6 +333,29 @@ export const themes = {
                     },
                 },
             },
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiDataGrid-cell': {
+                            backgroundColor: '#178587', // Background color for cells
+                            color: '#ffffff', // Font color for cells
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
+                            backgroundColor: '#FFCB9A', // Background color for column headers
+                            color: '#ffffff', // Font color for column headers
+                        },
+                        '& .MuiDataGrid-footerContainer': {
+                            backgroundColor: '#FFCB9A', // Background color for footer
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f5f5f5', // Background color for toolbar
+                        },
+                        '& .MuiDataGrid-selectedRow': {
+                            backgroundColor: '#e0f7fa', // Background color for selected rows
+                        },
+                    },
+                },
+            },
         },
     }),
 
@@ -270,12 +364,12 @@ export const themes = {
             mode: 'light',
             primary: { main: '#5D5C61' },
             secondary: { main: '#557A95' },
-            background: { default: '#557A95', paper: '#7395AE' },
+            background: { default: '#022140', paper: '#7395AE' },
             text: { primary: '#ffffff', secondary: '#0b4647' },
         },
         components: {
             MuiAppBar: { styleOverrides: { root: { backgroundColor: '#5D5C61' } } },//Top Nav
-            MuiDrawer: { styleOverrides: { paper: { backgroundColor: '#5D5C61' } } },//Side Nav
+            MuiDrawer: { styleOverrides: { paper: { backgroundColor: '#5D5C61' } } },//Side Nav 
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
@@ -306,6 +400,29 @@ export const themes = {
                     },
                 },
             },
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiDataGrid-cell': {
+                            backgroundColor: '#265077', // Background color for cells
+                            color: '#ffffff', // Font color for cells
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
+                            backgroundColor: '#022140', // Background color for column headers
+                            color: '#ffffff', // Font color for column headers
+                        },
+                        '& .MuiDataGrid-footerContainer': {
+                            backgroundColor: '#022140', // Background color for footer
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f5f5f5', // Background color for toolbar
+                        },
+                        '& .MuiDataGrid-selectedRow': {
+                            backgroundColor: '#e0f7fa', // Background color for selected rows
+                        },
+                    },
+                },
+            },
         },
     }),
 
@@ -332,4 +449,5 @@ export const themes = {
     }),
 };
 
-export type ThemeType = keyof typeof themes; // Defines valid theme keys
+export type ThemeType = 'light' | 'dark' | 'coptad' | 'facebook' | 'linkedin' | 'nature' | 'serious' | 'solarin' | 'stylish' | 'twitter';
+

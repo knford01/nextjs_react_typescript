@@ -117,26 +117,12 @@ export const resourceLinks = (router: any) => {
 
 export const siteLinks = (router: any) => {
     return (
-        <React.Fragment >
+        <React.Fragment>
             <ListSubheader component="div" inset>
                 Site Settings
             </ListSubheader>
-
-            <CustomLink href="/themes">
-                <ListItemButton selected={router.pathname === '/themes' ? true : false}>
-                    <ListItemIcon>
-                        <AutoAwesomeMosaicIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Themes
-                            </Typography>
-                        }
-                    />
-                </ListItemButton>
-            </CustomLink>
-        </React.Fragment >
+            {/* Remove the Themes link from here */}
+        </React.Fragment>
     );
 };
 
