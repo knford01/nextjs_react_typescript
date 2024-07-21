@@ -76,7 +76,7 @@ interface ThemeProps {
     children: React.ReactNode;
 }
 
-export default function NavTheme({ theme, children, themes, onThemeChange }: ThemeProps) {
+export default function NavTheme({ children, themes, onThemeChange }: ThemeProps) {
     const router = useRouter();
     const [open, setOpen] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

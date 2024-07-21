@@ -1,152 +1,87 @@
 import * as React from 'react';
-// import { useRouter } from 'next/router';
 import Link from 'next/link';
-// import Link from '@mui/material/Link';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PeopleIcon from '@mui/icons-material/People';
 import PersonIcon from '@mui/icons-material/Person';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import { styled } from '@mui/system';
-import Typography from '@mui/material/Typography';
 
 const CustomLink = styled(Link)({
     textDecoration: 'none',
 });
 
 export const mainLinks = (router: any) => {
-
     return (
         <React.Fragment>
             <CustomLink href="/">
-                <ListItemButton selected={router.pathname === '/' ? true : false}>
+                <ListItemButton selected={router.pathname === '/'}>
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Dashboard
-                            </Typography>
-                        }
-                    />
-                </ListItemButton>
-            </CustomLink >
-
-            <CustomLink href="/orders">
-                <ListItemButton selected={router.pathname === '/orders' ? true : false}>
-                    <ListItemIcon>
-                        <ShoppingCartIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Orders
-                            </Typography>
-                        }
-                    />
+                    <ListItemText primary="Dashboard" />
                 </ListItemButton>
             </CustomLink>
 
-            {/* <CustomLink href="/integrations">
-                <ListItemButton selected={router.pathname === '/integrations' ? true : false}>
+            <CustomLink href="/orders">
+                <ListItemButton selected={router.pathname === '/orders'}>
                     <ListItemIcon>
-                        <LocalShippingIcon />
+                        <ShoppingCartIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Warehouse Manager
-                            </Typography>
-                        }
-                    />
+                    <ListItemText primary="Orders" />
                 </ListItemButton>
-            </CustomLink> */}
-
+            </CustomLink>
         </React.Fragment>
     );
 };
 
 export const resourceLinks = (router: any) => {
     return (
-        <React.Fragment >
-            <ListSubheader component="div" inset>
+        <React.Fragment>
+            <ListSubheader component="div" inset sx={{ fontWeight: 'bold', fontSize: '1.1rem' }}>
                 Resources
             </ListSubheader>
 
             <CustomLink href="/customers">
-                <ListItemButton selected={router.pathname === '/customers' ? true : false}>
+                <ListItemButton selected={router.pathname === '/customers'}>
                     <ListItemIcon>
                         <PeopleIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Customers
-                            </Typography>
-                        }
-                    />
+                    <ListItemText primary="Customers" />
                 </ListItemButton>
             </CustomLink>
-
-            {/* <CustomLink href="/reports">
-                <ListItemButton selected={router.pathname === '/reports' ? true : false}>
-                    <ListItemIcon>
-                        <BarChartIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Reports
-                            </Typography>
-                        }
-                    />
-                </ListItemButton>
-            </CustomLink> */}
-        </React.Fragment >
+        </React.Fragment>
     );
 };
 
 export const siteLinks = (router: any) => {
     return (
         <React.Fragment>
-            <ListSubheader component="div" inset>
+            <ListSubheader component="div" inset sx={{ fontWeight: 'bold', fontSize: '1.1rem' }}>
                 Site Settings
             </ListSubheader>
-            {/* Remove the Themes link from here */}
         </React.Fragment>
     );
 };
 
 export const adminLinks = (router: any) => {
     return (
-        <React.Fragment >
-            <ListSubheader component="div" inset>
+        <React.Fragment>
+            <ListSubheader component="div" inset sx={{ fontWeight: 'bold', fontSize: '1.1rem' }}>
                 Admin Settings
             </ListSubheader>
 
             <CustomLink href="/users">
-                <ListItemButton selected={router.pathname === '/users' ? true : false}>
+                <ListItemButton selected={router.pathname === '/users'}>
                     <ListItemIcon>
                         <PersonIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={
-                            <Typography sx={{ fontWeight: 'bold' }}>
-                                Users
-                            </Typography>
-                        }
-                    />
+                    <ListItemText primary="Users" />
                 </ListItemButton>
             </CustomLink>
-        </React.Fragment >
+        </React.Fragment>
     );
 };
